@@ -37,15 +37,15 @@ brew install docker
 ```
 In order to install dependencies and image, run:
 ```
-./docker-compose up
+docker-compose up
 ```
 In order to stop docker:
 ```
-./docker-compose down
+docker-compose down
 ```
 In order to scale, update docker-compose.yml file and run:
 ```
-./docker-compose up --remove-orphans
+docker-compose up --remove-orphans
 ```
 
 ## Usage
