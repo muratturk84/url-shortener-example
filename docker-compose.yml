@@ -6,6 +6,14 @@ app1:
   ports:
     - "8080"
 
+app2:
+  image: muratturk/url-shortener-example
+  hostname: url-shortener-app2
+  links:
+    - mongodb
+  ports:
+    - "8080"
+
 mongodb:
   image: mongo
   hostname: url-shortener-mongo
@@ -18,3 +26,4 @@ haproxy:
       - "8080:80"
     links:
       - app1
+      - app2
