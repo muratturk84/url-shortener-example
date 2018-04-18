@@ -25,7 +25,7 @@ version = 'latest'
 compileJava {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-    mainClassName       = "Application"
+    mainClassName       = "com.neueda.urlshortenerexample.Application"
 }
 
 repositories {
