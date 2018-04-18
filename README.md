@@ -2,7 +2,7 @@
 
 Sample URL Shortener Application
 
-Written with Java 8 using Spring Boot, Gradle, MongoDB, Lombok, Google Guava and Docker.
+Written with Java 8 using Spring Boot, Gradle, MongoDB, Lombok, JUnit, Mockito, Google Guava and Docker.
 
 ## Build, test, run
 
