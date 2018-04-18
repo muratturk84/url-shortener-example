@@ -47,3 +47,20 @@ In order to scale, update docker-compose.yml file and run:
 ```
 ./docker-compose up --remove-orphans
 ```
+
+## Usage
+
+Shorten
+```
+# POST /shorten
+curl -d '{"url":"http://www.neueda.com"}' -H "Content-Type: application/json" -X POST http://localhost:8080/shorten
+```
+Redirect
+```
+# GET /{shortenedUrl}
+curl -v http://localhost:8080/6c44eeb5
+```
+Statistics
+```
+# GET /statistics
+curl http://localhost:8080/statistics```
