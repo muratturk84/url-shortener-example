@@ -1,0 +1,20 @@
+app1:
+  image: muratturk/url-shortener-example
+  hostname: url-shortener-app1
+  links:
+    - mongodb
+  ports:
+    - "8080"
+
+mongodb:
+  image: mongo
+  hostname: url-shortener-mongo
+  volumes:
+    - ~/Workspace/Docker/data:/data/db
+
+haproxy:
+    image: tutum/haproxy
+    ports:
+      - "80:80"
+    links:
+      - app1
