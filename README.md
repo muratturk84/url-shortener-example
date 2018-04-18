@@ -22,7 +22,7 @@ In order to start web server, run:
 ```
 ./gradlew bootRun
 ```
-In order to push to docker cloud, run:
+In order to build docker image, run:
 ```
 ./gradlew buildDocker
 ```
