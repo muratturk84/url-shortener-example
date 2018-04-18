@@ -43,3 +43,7 @@ In order to stop docker:
 ```
 ./docker-compose down
 ```
+In order to scale, update docker-compose.yml file and run:
+```
+./docker-compose up --remove-orphans
+```
