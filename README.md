@@ -6,6 +6,10 @@ Written with Java 8 using Spring Boot, Gradle, MongoDB, Lombok, Google Guava and
 
 ## Build, test, run
 
+In order to install gradle, run:
+```
+brew install gradle
+```
 In order to test (Be careful that MondoDB is up and running. You can run with ``./mongod``), run:
 ```
 ./gradlew test
@@ -27,6 +31,10 @@ In order to push to docker cloud, run:
 
 Docker image is stored at: ``muratturk/url-shortener-example``
 
+In order to install docker, run:
+```
+brew install docker
+```
 In order to install dependencies and image, run:
 ```
 ./docker-compose up
