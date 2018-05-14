@@ -26,6 +26,7 @@ public class ShortenUrlImpl implements ShortenUrl{
      * shortenCount for statistics increments per request in shortUrlServiceImpl
      *
      * @param uri URI to shorten
+     * @return ShortUrlResponse
      */
     public ShortUrlResponse shorten(URI uri) {
         ShortUrl shortUrl = shortUrlServiceImpl.shorten(uri);
@@ -41,6 +42,7 @@ public class ShortenUrlImpl implements ShortenUrl{
      * If found in repository, redirectionCounter increments in shortUrlServiceImpl
      *
      * @param shortenedUrl shortURL to redirect
+     * @return String
      */
     public String getRedirectionUrl(String shortenedUrl) throws ShortUrlNotFoundException {
         ShortUrl shortUrl = shortUrlServiceImpl.findShortenedUrl(shortenedUrl);
@@ -51,6 +53,7 @@ public class ShortenUrlImpl implements ShortenUrl{
     /**
      * Number of records in the repository is returned
      * In the response totalShortUrlCount is included
+     * @return StatisticsResponse
      */
     public StatisticsResponse statistics() {
         Long totalShortUrlCount = shortUrlServiceImpl.getAllCount();

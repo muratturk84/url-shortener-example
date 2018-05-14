@@ -28,6 +28,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
      * If not fount in the repository creation begins
      *
      * @param originalURI URI to shorten
+     * @return ShortUrl
      */
     public ShortUrl shorten(URI originalURI) {
         ShortUrl shortUrl = shortUrlRepository.findByOriginalUrl(originalURI.toString());
@@ -52,6 +53,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
      *
      * @param shortenedUrl shortURL to redirect
      * @throws ShortUrlNotFoundException
+     * @return ShortUrl
      */
     @SuppressWarnings("JavaDoc")
     public ShortUrl findShortenedUrl(String shortenedUrl) throws ShortUrlNotFoundException {
@@ -91,6 +93,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     /**
      * Get number of records in the repository
+     * @return Long
      */
     public Long getAllCount() {
         return shortUrlRepository.countDistinctByShortenedUrlIsNotNull();
@@ -100,6 +103,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
      * New shortUrl record is created and stored in the repository
      *
      * @param originalUri URL to shorten
+     * @return ShortUrl
      */
     public ShortUrl createShortUrl(URI originalUri, Date date) {
         final String shortenedUrl = Hashing.murmur3_32().hashString(originalUri.toString(), StandardCharsets.UTF_8).toString();
@@ -142,6 +146,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     /**
      * Return list of most shortened urls
+     *
+     * @return List<String>
      */
     public List<String> getMostShortenedUrls() {
         ShortUrl shortUrlRecord = shortUrlRepository.findFirstByOrderByShortenCountDesc();
@@ -166,6 +172,8 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
     /**
      * Return list of most redirected urls
+     *
+     * @return List<String>
      */
     public List<String> getMostRedirectedUrls() {
         ShortUrl shortUrlRecord = shortUrlRepository.findFirstByOrderByRedirectionCountDesc();

@@ -15,8 +15,9 @@ class UriValidatorImpl implements UriValidator {
      * Constructs a URI by parsing the given string.
      *
      * @param uri URI string to be validated
+     * @return boolean
      */
-    public boolean absoluteUri(String uri) {
+    private boolean absoluteUri(String uri) {
         try {
             new URI(uri);
         } catch (Exception ex) {
@@ -29,8 +30,9 @@ class UriValidatorImpl implements UriValidator {
      * Validates the protocol provided in @validProtocols.
      *
      * @param uri URI string to be validated
+     * @return boolean
      */
-    public boolean validProtocol(String uri) {
+    private boolean validProtocol(String uri) {
         try {
             String protocol = new URI(uri).getScheme().toLowerCase();
             return validProtocols.stream().anyMatch(protocol::equals);
@@ -47,8 +49,9 @@ class UriValidatorImpl implements UriValidator {
      * - 0.0.0.0
      *
      * @param uri URI string to be validated
+     * @return boolean
      */
-    public boolean globallyAccessibleUri(String uri) {
+    private boolean globallyAccessibleUri(String uri) {
         if (uri.matches("\\w+://localhost.*")) {
             return false;
         } else if (uri.matches("\\w+://192\\.168(?:\\.\\d{1,3}){2}.*")) {
