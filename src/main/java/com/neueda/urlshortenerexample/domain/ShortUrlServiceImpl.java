@@ -152,22 +152,20 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     public List<String> getMostShortenedUrls() {
         ShortUrl shortUrlRecord = shortUrlRepository.findFirstByOrderByShortenCountDesc();
         Long highestShortenCount;
+        List<String> strings = null;
 
         if (shortUrlRecord != null) {
             highestShortenCount = shortUrlRecord.getShortenCount();
             List<ShortUrl> shortUrls = shortUrlRepository.findAllByShortenCount(highestShortenCount);
 
-            List<String> strings = new ArrayList<>();
+            strings = new ArrayList<>();
 
             for (ShortUrl shortUrl : shortUrls) {
                 strings.add(shortUrl.getShortenedUrl());
             }
-            return strings;
-
-        } else {
-            return null;
         }
 
+        return strings;
     }
 
     /**
@@ -178,19 +176,18 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     public List<String> getMostRedirectedUrls() {
         ShortUrl shortUrlRecord = shortUrlRepository.findFirstByOrderByRedirectionCountDesc();
         Long highestRedirectionCount;
+        List<String> strings = null;
 
         if (shortUrlRecord != null) {
             highestRedirectionCount = shortUrlRecord.getRedirectionCount();
             List<ShortUrl> shortUrls = shortUrlRepository.findAllByRedirectionCount(highestRedirectionCount);
-            List<String> strings = new ArrayList<>();
+            strings = new ArrayList<>();
 
             for (ShortUrl shortUrl : shortUrls) {
                 strings.add(shortUrl.getOriginalUrl());
             }
-
-            return strings;
-        } else {
-            return null;
         }
+
+        return strings;
     }
 }

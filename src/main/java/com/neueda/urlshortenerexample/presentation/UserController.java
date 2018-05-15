@@ -34,7 +34,12 @@ public class UserController {
      */
     @RequestMapping(value = "/shorten", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> shortenURL(@RequestBody ShortUrlRequest shortUrlRequest) throws URISyntaxException, MalformedURLException {
-        URI uri = validatedURL(shortUrlRequest);
+        URI uri = UriValidatorImpl.validate(shortUrlRequest);
+
+        if (uri == null) {
+            throw new MalformedURLException("URI is null");
+        }
+
         ShortUrlResponse response = shortenUrlImpl.shorten(uri);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -59,15 +64,5 @@ public class UserController {
     @RequestMapping(value = "/statistics", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public StatisticsResponse getStats() {
         return shortenUrlImpl.statistics();
-    }
-
-
-    private URI validatedURL(ShortUrlRequest url) throws URISyntaxException, MalformedURLException {
-        UriValidatorImpl validator = new UriValidatorImpl();
-        String uri = url.getUrl();
-        if (!validator.validate(uri)) {
-            throw new MalformedURLException("Invalid URI: " + uri);
-        }
-        return new URI(uri);
     }
 }

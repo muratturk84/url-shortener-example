@@ -1,25 +1,34 @@
 package com.neueda.urlshortenerexample.presentation;
 
+import com.neueda.urlshortenerexample.presentation.requests.ShortUrlRequest;
+
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
+import java.net.URISyntaxException;
 
 class UriValidatorImpl implements UriValidator {
-    private List<String> validProtocols = Arrays.asList("http", "https");
 
-    public boolean validate(String uri) {
-        return absoluteUri(uri) && validProtocol(uri) && globallyAccessibleUri(uri);
+    private UriValidatorImpl() {}
+
+    static URI validate(ShortUrlRequest shortUrlRequest) throws URISyntaxException {
+        String url = shortUrlRequest.getUrl();
+        URI uri = null;
+
+        if (absoluteUri(url) && validProtocol(url) && globallyAccessibleUri(url)) {
+            uri = new URI(url);
+        }
+
+        return uri;
     }
 
     /**
      * Constructs a URI by parsing the given string.
      *
-     * @param uri URI string to be validated
+     * @param url URL string to be validated
      * @return boolean
      */
-    private boolean absoluteUri(String uri) {
+    private static boolean absoluteUri(String url) {
         try {
-            new URI(uri);
+            new URI(url);
         } catch (Exception ex) {
             return false;
         }
@@ -29,12 +38,12 @@ class UriValidatorImpl implements UriValidator {
     /**
      * Validates the protocol provided in @validProtocols.
      *
-     * @param uri URI string to be validated
+     * @param url URL string to be validated
      * @return boolean
      */
-    private boolean validProtocol(String uri) {
+    private static boolean validProtocol(String url) {
         try {
-            String protocol = new URI(uri).getScheme().toLowerCase();
+            String protocol = new URI(url).getScheme().toLowerCase();
             return validProtocols.stream().anyMatch(protocol::equals);
         } catch (Exception e) {
             return false;
@@ -48,14 +57,14 @@ class UriValidatorImpl implements UriValidator {
      * - 127.0.0.1
      * - 0.0.0.0
      *
-     * @param uri URI string to be validated
+     * @param url URL string to be validated
      * @return boolean
      */
-    private boolean globallyAccessibleUri(String uri) {
-        if (uri.matches("\\w+://localhost.*")) {
+    private static boolean globallyAccessibleUri(String url) {
+        if (url.matches("\\w+://localhost.*")) {
             return false;
-        } else if (uri.matches("\\w+://192\\.168(?:\\.\\d{1,3}){2}.*")) {
+        } else if (url.matches("\\w+://192\\.168(?:\\.\\d{1,3}){2}.*")) {
             return false;
-        } else return !uri.matches("\\w+://(127\\.0\\.0\\.1|0\\.0\\.0\\.0)\\D?.*");
+        } else return !url.matches("\\w+://(127\\.0\\.0\\.1|0\\.0\\.0\\.0)\\D?.*");
     }
 }
